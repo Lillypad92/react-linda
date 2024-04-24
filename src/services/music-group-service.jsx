@@ -67,31 +67,6 @@ class musicService {
       return data;
     }
 
-    async #_updateItemAsync(reqUrl, id, newItem)
-    {
-      reqUrl += `/${id}`;
-      let data = await this.#_myFetch(reqUrl, 'PUT', newItem);
-      return data;
-    }
-
-    async #_createItemAsync(reqUrl, newItem)
-    {
-      let data = await this.#_myFetch(reqUrl, 'POST', newItem);
-      return data;
-    }
-
-    async #_deleteItemAsync(reqUrl, id)
-    {
-      reqUrl += `/${id}`;
-      let data = await this.#_myFetch(reqUrl, 'DELETE');
-      return data;
-    }
-
-    async #_upsertItemAsync(reqUrl, newItem)
-    {
-      let data = await this.#_myFetch(reqUrl, 'POST', newItem);
-      return data;
-    }
     //#endregion
 
     async readInfoAsync() 
@@ -109,27 +84,11 @@ class musicService {
     //using JavaScrip's ability to asign a function to a variable or property (like c# delegate)
     readMusicGroupAsync = async (id, flat=true) => this.#_readItemAsync(`${this.url}/csMusicGroups/ReadItem`, id, flat);
     
-    readMusicGroupDtoAsync = async (id, flat=true) => this.#_readItemDtoAsync(`${this.url}/csMusicGroups/ReadItemDto`, id, flat);
-    
-    updateMusicGroupAsync = async (id, newItem) => this.#_updateItemAsync(`${this.url}/csMusicGroups/UpdateItem`, id, newItem);
-  
-    createMusicGroupAsync = async (newItem) => this.#_createItemAsync(`${this.url}/csMusicGroups/CreateItem`, newItem);
- 
-    deleteMusicGroupAsync = async (id) => this.#_deleteItemAsync(`${this.url}/csMusicGroups/DeleteItem`, id);
-    //#endregion
-
     //#region CRUD Album
     readAlbumsAsync = async (pageNr, flat=false, filter=null, pageSize=10) => this.#_readItemsAsync(`${this.url}/csAlbums/Read`, pageNr, flat, filter, pageSize);
     
     readAlbumAsync  = async (id, flat=true) => this.#_readItemAsync(`${this.url}/csAlbums/ReadItem`, id, flat);
 
-    readAlbumDtoAsync = async (id) => this.#_readItemDtoAsync(`${this.url}/csAlbums/ReadItemDto`, id);
-
-    updateAlbumAsync = async (id, newItem) => this.#_updateItemAsync(`${this.url}/csAlbums/UpdateItem`, id, newItem);
-
-    createAlbumAsync = async (newItem) => this.#_createItemAsync(`${this.url}/csAlbums/CreateItem`, newItem);
-
-    deleteAlbumAsync = async (id) => this.#_deleteItemAsync(`${this.url}/csAlbums/DeleteItem`, id);
     //#endregion
     
     //#region CRUD Artist
@@ -138,12 +97,7 @@ class musicService {
     readArtistAsync = async (id, flat=true) => this.#_readItemAsync(`${this.url}/csArtists/ReadItem`, id, flat);
 
     readArtistDtoAsync = async (id, flat=true) => this.#_readItemDtoAsync(`${this.url}/csArtists/ReadItemDto`, id);
-    
-    updateArtistAsync = async (id, newItem) => this.#_updateItemAsync(`${this.url}/csArtists/UpdateItem`, id, newItem);
 
-    upsertArtistAsync = async (newItem) => this.#_upsertItemAsync(`${this.url}/csArtists/UpsertItem`, newItem);
-
-    deleteArtistAsync = async (id) => this.#_deleteItemAsync(`${this.url}/csArtists/DeleteItem`, id);
     //#endregion
 }
 

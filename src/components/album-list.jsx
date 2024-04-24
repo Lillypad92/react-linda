@@ -4,7 +4,7 @@ import ListGroup from 'react-bootstrap/ListGroup';
 import '../style/styles.css';
 
 
-export default function AlbumList(props)
+export default function ListOfAlbum(props)
 {
     const albums = props.serviceData?.pageItems;
     return (

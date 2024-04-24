@@ -1,51 +1,48 @@
 import React, {useState, useEffect} from 'react';
-import { Outlet, useParams, useNavigate, useOutletContext } from 'react-router-dom';
+import { Outlet, useOutletContext } from 'react-router-dom';
 import musicService from '../services/music-group-service';
-import AlbumList from '../components/album-list';
-import {SearchForm} from '../components/search-form';
+import ListOfAlbum from '../components/album-list';
 
-
-export function AlbumsWebApi() {
+export function FetchAlbumsWebApi() {
     const service = new musicService(`https://appmusicwebapinet8.azurewebsites.net/api`);
     return (
       <div className="container px-4 py-4 text-start">
         <h2 className="pb-2 border-bottom">List of music bands</h2>
         <Outlet context={service} />
+
+        
       </div>
     );
   }
   
     export function AlbumsWebApiList() {
+
     const service = useOutletContext();
-    const navigate = useNavigate();
-    const [serviceData, setServiceData] = useState(null);
+    
+    const [serviceData, setServiceData] = useState();
     const [currentPage, setCurrentPage] = useState(0);
   
-    const itemsPerPage = 10; // Set the limit of items per page
+    const itemsPerPage = 10; 
   
     useEffect(() => {
       readWebApi();
-    }, [currentPage, service]); // Update when currentPage or service changes
+    }, [currentPage, service]); 
   
     const readWebApi = async () => {
       const data = await service.readMusicGroupsAsync(currentPage);
       setServiceData(data);
     };
-  
-    const onView = (id) => {
-      navigate(`/albums-webapi/${id}`);
-    };
-  
     const handlePaginationClick = (page) => {
       setCurrentPage(page);
+      
     };
   
-    const totalPages = Math.ceil(serviceData?.totalItems / itemsPerPage); // Calculate total pages based on total items and items per page
-    const visiblePages = Math.min(totalPages, 10); // Limit to 10 pages
+    const totalPages = Math.ceil(serviceData?.totalItems / itemsPerPage); 
+    const visiblePages = Math.min(totalPages, 10); 
   
     return (
       <>
-        <AlbumList serviceData={serviceData} onClick={onView} />
+        <ListOfAlbum serviceData={serviceData} />
   
         <nav aria-label="Page navigation example">
           <ul className="pagination">
@@ -84,23 +81,3 @@ export function AlbumsWebApi() {
       </>
     );
   }
-
-export function AlbumDetail(props) {
-
-    const { searchMusicFilter } = useParams();
-    const [albums, setAlbums] = useState({});
-    const [filter, setFilter] = useState(searchMusicFilter || "");
-  
-    useEffect(() => {
-      (async() => {
-        const service = new musicService(`https://appmusicwebapinet8.azurewebsites.net/api`);
-        const data = await service.readAlbumsAsync(0, true, searchMusicFilter);
-        setAlbums(data);
-      })();
-      setFilter(searchMusicFilter);
-    }, [searchMusicFilter]);
-  
-    return (
-      <SearchForm searchMusicFilter={filter} />
-    );
-}
