@@ -55,7 +55,7 @@ export function AlbumsWebApiList() {
   };
   const onSave = async (e) => {
     const data = await service.readMusicGroupsAsync(
-      currentPage,
+      0,
       true,
       e.searchFilter
     );
