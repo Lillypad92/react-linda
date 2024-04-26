@@ -1,7 +1,8 @@
 import React from 'react'
 import {Routes, Route } from "react-router-dom";
 import {Home} from '../pages/home'
-import { FetchAlbumsWebApi, AlbumsWebApiList } from '../pages/albums-webapi';
+import { FetchAlbumsWebApi, AlbumsWebApiList, AlbumWebApiView } from '../pages/albums-webapi';
+
 
 export function AppRouter() {
   return (
@@ -10,6 +11,7 @@ export function AppRouter() {
         <Route path="/home" element={<Home/>}/>
         <Route path="/albums-webapi" element={<FetchAlbumsWebApi />}>
         <Route index element={<AlbumsWebApiList />} />
+        <Route index path=':albumId' element={<AlbumWebApiView />} />
       </Route>
     </Routes>
   )

@@ -4,3 +4,13 @@
 .list-group {
     padding-bottom: 10px;
 }
+.d-flex {
+    padding-bottom: 20px;
+}
+#detailBtn {
+    padding: 0px 10px;
+    margin-left: 10px;
+}   
+#accordion {
+    margin-top: 20px;
+}
