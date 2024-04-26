@@ -8,7 +8,7 @@ import Badge from "react-bootstrap/Badge";
 import '../style/styles.css';
 
 /* Note to myself
-  For future reference, breakup the code into smaller components and use the useEffect hook to fetch data from the web API.
+  For future reference, breakup the code into smaller components.
 */
 
 export function FetchAlbumsWebApi() {
